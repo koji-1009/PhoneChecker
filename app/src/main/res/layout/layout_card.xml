@@ -32,41 +32,77 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:text='@{"Sensor name " + sensor.name}'
-                tools:text="name" />
+                android:ems="8"
+                android:text="@string/sensor_name"
+                tools:text="Sensor name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/name"
+                android:text="@{sensor.name}"
+                tools:text="Name" />
 
             <TextView
                 android:id="@+id/power"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/name"
-                android:text='@{"Power " + sensor.power}'
-                tools:text="power" />
+                android:ems="8"
+                android:text="@string/power"
+                tools:text="Power" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/name"
+                android:layout_toEndOf="@+id/power"
+                android:text="@{String.valueOf(sensor.power)}"
+                tools:text="Power" />
 
             <TextView
                 android:id="@+id/maximumRange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/power"
-                android:text='@{"MaxRenge " + sensor.maximumRange}'
-                tools:text="maxRange" />
+                android:ems="8"
+                android:text="@string/max_range"
+                tools:text="MaxRange" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/power"
+                android:layout_toEndOf="@+id/maximumRange"
+                android:text="@{String.valueOf(sensor.maximumRange)}"
+                tools:text="MaxRange" />
 
             <TextView
                 android:id="@+id/resolution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/maximumRange"
-                android:text='@{"Resolution " + sensor.resolution}'
-                tools:text="resolution" />
+                android:ems="8"
+                android:text="@string/resolution"
+                tools:text="Resolution" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/maximumRange"
+                android:layout_toEndOf="@+id/resolution"
+                android:text="@{String.valueOf(sensor.resolution)}"
+                tools:text="Resolution" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,28 +110,52 @@
                 android:layout_below="@id/resolution">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text='@{"X : " + values.x}'
+                    android:layout_weight="0"
+                    android:text="@string/x_prefix"
                     android:visibility="@{values.showX ? View.VISIBLE : View.GONE}"
-                    tools:text="X : -1" />
+                    tools:text="X : " />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='@{"Y : " + values.y}'
+                    android:text='@{values.formatX}'
+                    android:visibility="@{values.showX ? View.VISIBLE : View.GONE}"
+                    tools:text="-1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/y_prefix"
                     android:visibility="@{values.showY ? View.VISIBLE : View.GONE}"
-                    tools:text="Y : -1" />
+                    tools:text="Y : " />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='@{"Z : " + values.z}'
+                    android:text='@{values.formatY}'
+                    android:visibility="@{values.showY ? View.VISIBLE : View.GONE}"
+                    tools:text="-1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/z_prefix"
                     android:visibility="@{values.showZ ? View.VISIBLE : View.GONE}"
-                    tools:text="Z : -1" />
+                    tools:text="Z : " />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text='@{values.formatZ}'
+                    android:visibility="@{values.showZ ? View.VISIBLE : View.GONE}"
+                    tools:text="-1" />
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

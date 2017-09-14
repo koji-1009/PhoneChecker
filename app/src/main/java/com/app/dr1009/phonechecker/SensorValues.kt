@@ -5,41 +5,47 @@ import android.databinding.Bindable
 
 class SensorValues : BaseObservable() {
 
-    @get:Bindable
-    var x = Float.MIN_VALUE
+    private var x = Float.MIN_VALUE
         set(value) {
             field = value
             isShowX = true
-            notifyPropertyChanged(BR.x)
             notifyPropertyChanged(BR.showX)
+            notifyPropertyChanged(BR.formatX)
         }
 
     @get:Bindable
     var isShowX = false
 
-    @get:Bindable
-    var y = Float.MIN_VALUE
+    @Bindable
+    fun getFormatX() = String.format("%+.3f", x)
+
+    private var y = Float.MIN_VALUE
         set(value) {
             field = value
             isShowY = true
-            notifyPropertyChanged(BR.y)
             notifyPropertyChanged(BR.showY)
+            notifyPropertyChanged(BR.formatY)
         }
 
     @get:Bindable
     var isShowY = false
 
-    @get:Bindable
-    var z = Float.MIN_VALUE
+    @Bindable
+    fun getFormatY() = String.format("%+.3f", y)
+
+    private var z = Float.MIN_VALUE
         set(value) {
             field = value
             isShowZ = true
-            notifyPropertyChanged(BR.z)
             notifyPropertyChanged(BR.showZ)
+            notifyPropertyChanged(BR.formatZ)
         }
 
     @get:Bindable
     var isShowZ = false
+
+    @Bindable
+    fun getFormatZ() = String.format("%+.3f", z)
 
     fun setValues(array: FloatArray) {
         when (array.size) {

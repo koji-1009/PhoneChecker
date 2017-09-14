@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PhoneChecker</string>
+    <string name="sensor_name">Sensor name</string>
+    <string name="power">Power</string>
+    <string name="max_range">MaxRange</string>
+    <string name="resolution">Resolution</string>
+    <string name="x_prefix">X :</string>
+    <string name="y_prefix">Y :</string>
+    <string name="z_prefix">Z :</string>
 </resources>
