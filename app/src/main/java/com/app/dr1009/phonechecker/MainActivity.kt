@@ -11,6 +11,9 @@ import com.app.dr1009.phonechecker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
+    private val SAMPLING_PERIOD_US = 5e5.toInt()
+    private val MAX_REPORT_LATENCY_US = 5e6.toInt()
+
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mAdapter: CardRecyclerAdapter
     private lateinit var mSensorManager: SensorManager
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onResume()
         mSensorManager.getSensorList(Sensor.TYPE_ALL).forEach { sensor ->
             mAdapter.insertSensor(sensor)
-            mSensorManager.registerListener(this@MainActivity, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+            mSensorManager.registerListener(this@MainActivity, sensor, SAMPLING_PERIOD_US, MAX_REPORT_LATENCY_US)
         }
         mAdapter.notifyDataSetChanged()
     }
