@@ -7,4 +7,7 @@
     <string name="x_prefix">X :</string>
     <string name="y_prefix">Y :</string>
     <string name="z_prefix">Z :</string>
+    <string name="detail">Detail</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="legal">legal</string>
 </resources>
