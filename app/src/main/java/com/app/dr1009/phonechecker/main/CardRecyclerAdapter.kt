@@ -1,4 +1,4 @@
-package com.app.dr1009.phonechecker
+package com.app.dr1009.phonechecker.main
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.app.dr1009.phonechecker.BR
+import com.app.dr1009.phonechecker.R
 
 class CardRecyclerAdapter(private val mContext: Context) : RecyclerView.Adapter<CardRecyclerAdapter.BindingHolder>() {
 

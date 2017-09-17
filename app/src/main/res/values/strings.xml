@@ -10,4 +10,6 @@
     <string name="detail">Detail</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="legal">legal</string>
+    <string name="start">Start</string>
+    <string name="item_new">New</string>
 </resources>
