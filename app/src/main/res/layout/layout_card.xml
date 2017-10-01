@@ -11,11 +11,9 @@
 
         <variable
             name="values"
-            type="com.app.dr1009.phonechecker.SensorValues" />
+            type="com.app.dr1009.phonechecker.main.SensorValues" />
 
-        <import type="android.view.View" />
-
-        <import type="com.app.dr1009.phonechecker.CardPresenter" />
+        <import type="com.app.dr1009.phonechecker.main.CardPresenter" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -111,14 +109,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/resolution"
-                android:visibility="@{values.showX ? View.VISIBLE : View.GONE}">
+                android:visibility="@{values.visibilityX}">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/x_prefix"
-                    android:visibility="@{values.showX ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{values.visibilityX}"
                     tools:text="X : " />
 
                 <TextView
@@ -126,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text='@{values.formatX}'
-                    android:visibility="@{values.showX ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{values.visibilityX}"
                     tools:text="-1" />
 
                 <TextView
@@ -134,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/y_prefix"
-                    android:visibility="@{values.showY ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{values.visibilityY}"
                     tools:text="Y : " />
 
                 <TextView
@@ -142,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text='@{values.formatY}'
-                    android:visibility="@{values.showY ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{values.visibilityY}"
                     tools:text="-1" />
 
                 <TextView
@@ -150,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/z_prefix"
-                    android:visibility="@{values.showZ ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{values.visibilityZ}"
                     tools:text="Z : " />
 
                 <TextView
@@ -158,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text='@{values.formatZ}'
-                    android:visibility="@{values.showZ ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{values.visibilityZ}"
                     tools:text="-1.000" />
 
                 <Button

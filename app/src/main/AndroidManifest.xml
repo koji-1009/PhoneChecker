@@ -4,6 +4,7 @@
     package="com.app.dr1009.phonechecker">
 
     <application
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,17 +23,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".detail.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.app.dr1009.phonechecker.MainActivity" />
+                android:value="com.app.dr1009.phonechecker.main.MainActivity" />
         </activity>
         <activity
-            android:name=".LegalActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".legal.LegalActivity"
+            android:parentActivityName=".main.MainActivity" />
     </application>
 
 </manifest>

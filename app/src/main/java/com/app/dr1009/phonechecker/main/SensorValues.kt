@@ -1,20 +1,21 @@
-package com.app.dr1009.phonechecker
+package com.app.dr1009.phonechecker.main
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.view.View
+import com.app.dr1009.phonechecker.BR
 
 class SensorValues : BaseObservable() {
 
     private var x = Float.MIN_VALUE
         set(value) {
             field = value
-            isShowX = true
-            notifyPropertyChanged(BR.showX)
+            notifyPropertyChanged(BR.visibilityX)
             notifyPropertyChanged(BR.formatX)
         }
 
-    @get:Bindable
-    var isShowX = false
+    @Bindable
+    fun getVisibilityX() = if (x == Float.MIN_VALUE) View.GONE else View.VISIBLE
 
     @Bindable
     fun getFormatX() = String.format("%+.3f", x)
@@ -22,13 +23,12 @@ class SensorValues : BaseObservable() {
     private var y = Float.MIN_VALUE
         set(value) {
             field = value
-            isShowY = true
-            notifyPropertyChanged(BR.showY)
+            notifyPropertyChanged(BR.visibilityY)
             notifyPropertyChanged(BR.formatY)
         }
 
-    @get:Bindable
-    var isShowY = false
+    @Bindable
+    fun getVisibilityY() = if (y == Float.MIN_VALUE) View.GONE else View.VISIBLE
 
     @Bindable
     fun getFormatY() = String.format("%+.3f", y)
@@ -36,30 +36,22 @@ class SensorValues : BaseObservable() {
     private var z = Float.MIN_VALUE
         set(value) {
             field = value
-            isShowZ = true
-            notifyPropertyChanged(BR.showZ)
+            notifyPropertyChanged(BR.visibilityZ)
             notifyPropertyChanged(BR.formatZ)
         }
 
-    @get:Bindable
-    var isShowZ = false
+    @Bindable
+    fun getVisibilityZ() = if (z == Float.MIN_VALUE) View.GONE else View.VISIBLE
 
     @Bindable
     fun getFormatZ() = String.format("%+.3f", z)
 
     fun setValues(array: FloatArray) {
-        when (array.size) {
-            1 -> {
-                x = array[0]
-            }
-            2 -> {
-                x = array[0]
-                y = array[1]
-            }
-            3 -> {
-                x = array[0]
-                y = array[1]
-                z = array[2]
+        array.forEachIndexed { index, value ->
+            when (index) {
+                0 -> x = value
+                1 -> y = value
+                2 -> z = value
             }
         }
     }
