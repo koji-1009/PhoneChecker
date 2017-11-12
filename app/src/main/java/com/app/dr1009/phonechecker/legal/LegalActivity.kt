@@ -11,10 +11,6 @@ class LegalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_legal)
 
-        resources.openRawResource(R.raw.legal).use {
-            val byteArray = ByteArray(it.available())
-            it.read(byteArray)
-            textView.text = String(byteArray)
-        }
+        legalWebView.loadUrl("file:///android_asset/licenses.html")
     }
 }
