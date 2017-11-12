@@ -6,8 +6,9 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 
 class CustomApplication : Application() {
-
-    private val REALM_FILE_NAME = "com.dr1009.app.phone_checker.realm"
+    companion object {
+        private const val REALM_FILE_NAME = "com.dr1009.app.phone_checker.realm"
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -16,3 +17,4 @@ class CustomApplication : Application() {
         Realm.setDefaultConfiguration(config)
     }
 }
+

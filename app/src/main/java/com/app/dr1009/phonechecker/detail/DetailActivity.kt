@@ -30,7 +30,9 @@ import java.util.concurrent.TimeUnit
 
 class DetailActivity : AppCompatActivity() {
 
-    private val DATE_FORMAT = SimpleDateFormat("yyyy/MM/dd, E, HH:mm:ss", Locale.ENGLISH)
+    companion object {
+        private val DATE_FORMAT = SimpleDateFormat("yyyy/MM/dd, E, HH:mm:ss", Locale.ENGLISH)
+    }
 
     private val mSensorManager: SensorManager by lazy { getSystemService(SENSOR_SERVICE) as SensorManager }
     private val mSensor: Sensor by lazy { mSensorManager.getSensorList(Sensor.TYPE_ALL).first { sensor -> sensor.name == mSensorName } }
@@ -170,8 +172,6 @@ class DetailActivity : AppCompatActivity() {
                 if (listZ.isNotEmpty()) {
                     addDataSet(setZ)
                 }
-
-
             }
 
             chart.data = lineData

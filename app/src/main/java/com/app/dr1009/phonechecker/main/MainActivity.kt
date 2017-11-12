@@ -15,9 +15,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
-
-    private val SAMPLING_PERIOD_US = 5e5.toInt()
-    private val MAX_REPORT_LATENCY_US = 5e6.toInt()
+    companion object {
+        private const val SAMPLING_PERIOD_US = 5e5.toInt()
+        private const val MAX_REPORT_LATENCY_US = 5e6.toInt()
+    }
 
     private val mAdapter: CardRecyclerAdapter by lazy { CardRecyclerAdapter(applicationContext) }
     private val mSensorManager: SensorManager by lazy { getSystemService(SENSOR_SERVICE) as SensorManager }
