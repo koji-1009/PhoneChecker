@@ -17,6 +17,7 @@ import com.app.dr1009.phonechecker.realm.SensorValues
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,8 +34,9 @@ class DetailActivity : AppCompatActivity() {
 
     private val mSensorManager: SensorManager by lazy { getSystemService(SENSOR_SERVICE) as SensorManager }
     private val mSensor: Sensor by lazy { mSensorManager.getSensorList(Sensor.TYPE_ALL).first { sensor -> sensor.name == mSensorName } }
-    private val mSensorName : String by lazy { intent.extras[CardPresenter.INTENT_SENSOR_NAME] as String }
-    private lateinit var mAdapter: ArrayAdapter<String>
+    private val mSensorName: String by lazy { intent.extras[CardPresenter.INTENT_SENSOR_NAME] as String }
+    private val mAdapter: ArrayAdapter<String> by lazy { ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, mItems) }
+    private val mItems = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +48,12 @@ class DetailActivity : AppCompatActivity() {
 
         button.setOnClickListener { onClickStartButton() }
 
-        mAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item)
-        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        mItems.add(getString(R.string.item_new))
+        Realm.getDefaultInstance().use { realm ->
+            realm.where(Mesurement::class.java).equalTo("sensorName", mSensorName).findAll().forEach { mItems.add(it.recordDate) }
+        }
 
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = mAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -64,13 +69,6 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
-
-        mAdapter.add(getString(R.string.item_new))
-        Realm.getDefaultInstance().use { realm ->
-            val results = realm.where(Mesurement::class.java).equalTo("sensorName", mSensorName).findAll()
-            results.forEach { mAdapter.add(it.recordDate) }
-        }
-        mAdapter.notifyDataSetChanged()
     }
 
     private fun onClickStartButton() {
@@ -87,9 +85,10 @@ class DetailActivity : AppCompatActivity() {
 
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
-            val mesurement = realm.createObject(Mesurement::class.java)
-            mesurement.sensorName = mSensor.name
-            mesurement.recordDate = now
+            realm.createObject(Mesurement::class.java).apply {
+                sensorName = mSensorName
+                recordDate = now
+            }
             realm.commitTransaction()
         }
 
@@ -141,13 +140,41 @@ class DetailActivity : AppCompatActivity() {
                 if (it.valueZ != Float.MIN_VALUE) listZ.add(Entry(it.elapsedTime, it.valueZ))
             }
 
-            val lineDataSetX = if (listX.isNotEmpty()) LineDataSet(listX, "X").apply { color = Color.GREEN } else null
-            val lineDataSetY = if (listY.isNotEmpty()) LineDataSet(listX, "Y").apply { color = Color.YELLOW } else null
-            val lineDataSetZ = if (listZ.isNotEmpty()) LineDataSet(listX, "Z").apply { color = Color.BLUE } else null
+            val setX = LineDataSet(listX, "X").apply {
+                color = Color.GREEN
+                lineWidth = 2f
+            }
 
-            val lineDataList = listOfNotNull(lineDataSetX, lineDataSetY, lineDataSetZ)
-            val data = LineData(lineDataList)
-            chart.data = data
+            val setY = LineDataSet(listY, "Y").apply {
+                color = Color.YELLOW
+                lineWidth = 2f
+            }
+
+            val setZ = LineDataSet(listZ, "Z").apply {
+                color = Color.BLUE
+                lineWidth = 2f
+            }
+
+            chart.xAxis.apply {
+                granularity = 1f
+                valueFormatter = IAxisValueFormatter { value, _ -> "$value s" }
+            }
+
+            val lineData = LineData().apply {
+                if (listX.isNotEmpty()) {
+                    addDataSet(setX)
+                }
+                if (listY.isNotEmpty()) {
+                    addDataSet(setY)
+                }
+                if (listZ.isNotEmpty()) {
+                    addDataSet(setZ)
+                }
+
+
+            }
+
+            chart.data = lineData
             chart.invalidate()
         } else {
             chart.clear()
