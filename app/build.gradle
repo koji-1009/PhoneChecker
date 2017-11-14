@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    ext.supportLibVer = "27.0.0"
+    ext.supportLibVer = "27.0.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportLibVer"
