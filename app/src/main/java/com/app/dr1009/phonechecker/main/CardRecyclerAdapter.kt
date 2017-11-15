@@ -33,9 +33,7 @@ class CardRecyclerAdapter(private val mContext: Context) : RecyclerView.Adapter<
         holder.binding.executePendingBindings()
     }
 
-    override fun getItemCount(): Int {
-        return mSensorList.size
-    }
+    override fun getItemCount(): Int = mSensorList.size
 
     fun updateSensor(sensor: Sensor, values: FloatArray) {
         mSensorData[sensor.name]?.setValues(values)

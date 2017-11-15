@@ -54,14 +54,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_legal -> {
-                startActivity(Intent(applicationContext, LegalActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_legal -> {
+            startActivity(Intent(applicationContext, LegalActivity::class.java))
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
