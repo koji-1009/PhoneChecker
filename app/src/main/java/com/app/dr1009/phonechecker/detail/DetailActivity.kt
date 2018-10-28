@@ -12,7 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.app.dr1009.phonechecker.R
 import com.app.dr1009.phonechecker.main.CardPresenter
-import com.app.dr1009.phonechecker.realm.Mesurement
+import com.app.dr1009.phonechecker.realm.Measurement
 import com.app.dr1009.phonechecker.realm.SensorValues
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -52,7 +52,7 @@ class DetailActivity : AppCompatActivity() {
 
         mItems.add(getString(R.string.item_new))
         Realm.getDefaultInstance().use { realm ->
-            realm.where(Mesurement::class.java).equalTo("sensorName", mSensorName).findAll().forEach { mItems.add(it.recordDate) }
+            realm.where(Measurement::class.java).equalTo("sensorName", mSensorName).findAll().forEach { mItems.add(it.recordDate) }
         }
 
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -87,7 +87,7 @@ class DetailActivity : AppCompatActivity() {
 
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
-            realm.createObject(Mesurement::class.java).apply {
+            realm.createObject(Measurement::class.java).apply {
                 sensorName = mSensorName
                 recordDate = now
             }
@@ -115,7 +115,7 @@ class DetailActivity : AppCompatActivity() {
                 if (sensorEvent.values.isNotEmpty()) sensorObject.valueX = sensorEvent.values[0]
                 if (sensorEvent.values.size > 1) sensorObject.valueY = sensorEvent.values[1]
                 if (sensorEvent.values.size > 2) sensorObject.valueZ = sensorEvent.values[2]
-                realm.where(Mesurement::class.java).equalTo("recordDate", now).findFirst()!!.values.add(sensorObject)
+                realm.where(Measurement::class.java).equalTo("recordDate", now).findFirst()!!.values.add(sensorObject)
                 realm.commitTransaction()
             }
         }
@@ -131,12 +131,12 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showChart(date: String) {
-        val mesurement = Realm.getDefaultInstance().where(Mesurement::class.java).equalTo("recordDate", date).findFirst()
-        if (mesurement != null) {
+        val measurement = Realm.getDefaultInstance().where(Measurement::class.java).equalTo("recordDate", date).findFirst()
+        if (measurement != null) {
             val listX = mutableListOf<Entry>()
             val listY = mutableListOf<Entry>()
             val listZ = mutableListOf<Entry>()
-            mesurement.values.forEach {
+            measurement.values.forEach {
                 if (it.valueX != Float.MIN_VALUE) listX.add(Entry(it.elapsedTime, it.valueX))
                 if (it.valueY != Float.MIN_VALUE) listY.add(Entry(it.elapsedTime, it.valueY))
                 if (it.valueZ != Float.MIN_VALUE) listZ.add(Entry(it.elapsedTime, it.valueZ))
