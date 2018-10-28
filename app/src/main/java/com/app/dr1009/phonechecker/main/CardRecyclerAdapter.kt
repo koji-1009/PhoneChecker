@@ -28,9 +28,11 @@ class CardRecyclerAdapter(private val mContext: Context) : RecyclerView.Adapter<
         }
 
         val sensor = mSensorList[position]
-        holder.binding.setVariable(BR.sensor, sensor)
-        holder.binding.setVariable(BR.values, mSensorData[sensor.name])
-        holder.binding.executePendingBindings()
+        holder.binding?.let {
+            it.setVariable(BR.sensor, sensor)
+            it.setVariable(BR.values, mSensorData[sensor.name])
+            it.executePendingBindings()
+        }
     }
 
     override fun getItemCount(): Int = mSensorList.size
@@ -41,7 +43,7 @@ class CardRecyclerAdapter(private val mContext: Context) : RecyclerView.Adapter<
 
     fun insertSensor(sensor: Sensor) {
         mSensorList.add(sensor)
-        mSensorData.put(sensor.name, SensorValues())
+        mSensorData[sensor.name] = SensorValues()
     }
 
     fun clearSensors() {
@@ -50,7 +52,7 @@ class CardRecyclerAdapter(private val mContext: Context) : RecyclerView.Adapter<
     }
 
     inner class BindingHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding: ViewDataBinding = DataBindingUtil.bind(view)
+        val binding: ViewDataBinding? = DataBindingUtil.bind(view)
     }
 }
 

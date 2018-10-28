@@ -6,7 +6,7 @@ import com.app.dr1009.phonechecker.detail.DetailActivity
 
 object CardPresenter {
 
-    val INTENT_SENSOR_NAME = "IntentSensorName"
+    const val INTENT_SENSOR_NAME = "IntentSensorName"
 
     @JvmStatic
     fun onClickDetail(view: View, sensorName: String) {
