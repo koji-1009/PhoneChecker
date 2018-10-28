@@ -5,7 +5,7 @@ import android.app.Application
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
-class CustomApplication : Application() {
+class App : Application() {
     companion object {
         private const val REALM_FILE_NAME = "com.dr1009.app.phone_checker.realm"
     }

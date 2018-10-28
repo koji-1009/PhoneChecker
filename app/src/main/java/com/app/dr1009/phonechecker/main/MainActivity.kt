@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.app.dr1009.phonechecker.R
-import com.app.dr1009.phonechecker.legal.LegalActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.action_legal -> {
-            startActivity(Intent(applicationContext, LegalActivity::class.java))
+            startActivity(Intent(applicationContext, OssLicensesMenuActivity::class.java))
             true
         }
         else -> super.onOptionsItemSelected(item)
